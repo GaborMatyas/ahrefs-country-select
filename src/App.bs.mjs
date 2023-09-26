@@ -2,8 +2,11 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
+import * as ReactQuery from "react-query";
 import * as CountrySelect from "./component/CountrySelect.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
+
+var queryClient = new ReactQuery.QueryClient();
 
 function App(props) {
   var match = React.useState(function () {
@@ -16,19 +19,23 @@ function App(props) {
           }));
     console.log("" + country + "");
   };
-  return JsxRuntime.jsx("div", {
-              children: JsxRuntime.jsx(CountrySelect.make, {
-                    country: match[0],
-                    className: "w-[230px]",
-                    onChange: onCountryChange
-                  }),
-              className: "h-screen-dvh w-screen-dvh flex justify-center pt-32"
+  return JsxRuntime.jsx(ReactQuery.QueryClientProvider, {
+              client: queryClient,
+              children: JsxRuntime.jsx("div", {
+                    children: JsxRuntime.jsx(CountrySelect.make, {
+                          country: match[0],
+                          className: "w-[230px]",
+                          onChange: onCountryChange
+                        }),
+                    className: "h-screen-dvh w-screen-dvh flex justify-center pt-32"
+                  })
             });
 }
 
 var make = App;
 
 export {
+  queryClient ,
   make ,
 }
-/* react Not a pure module */
+/* queryClient Not a pure module */

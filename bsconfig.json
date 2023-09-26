@@ -15,7 +15,11 @@
   "suffix": ".bs.mjs",
   "bs-dependencies": [
     "@rescript/react",
-    "@rescript/core"
+    "@rescript/core",
+    "decco"
+  ],
+  "ppx-flags": [
+    "decco/ppx"
   ],
   "jsx": {
     "version": 4,

@@ -4,29 +4,13 @@ import * as Curry from "rescript/lib/es6/curry.js";
 import * as Button from "./Button.bs.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
+import * as UseCountriesHook from "../hooks/UseCountriesHook.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
-import MagnifierSvg from "../assets/magnifier.svg";
-
-var magnifierLogo = MagnifierSvg;
-
-var options = [
-  {
-    value: "chocolate",
-    label: "Chocolate"
-  },
-  {
-    value: "strawberry",
-    label: "Strawberry"
-  },
-  {
-    value: "vanilla",
-    label: "Vanilla"
-  }
-];
 
 function CountrySelect(props) {
   var onChange = props.onChange;
   var country = props.country;
+  var result = UseCountriesHook.useCountries(undefined);
   var handleCountryChange = function (e) {
     var newCountry = e.target.value;
     Curry._1(onChange, newCountry);
@@ -45,12 +29,16 @@ function CountrySelect(props) {
                               disabled: true,
                               value: "search"
                             }),
-                        Belt_Array.mapWithIndex(options, (function (i, option) {
-                                return JsxRuntime.jsx("option", {
-                                            children: "" + option.label + "",
-                                            value: option.value
-                                          }, "" + option.value + "-" + String(i) + "");
-                              }))
+                        typeof result === "number" ? (
+                            result !== 0 ? null : "Loading..."
+                          ) : JsxRuntime.jsx(JsxRuntime.Fragment, {
+                                children: Belt_Array.mapWithIndex(result._0, (function (i, country) {
+                                        return JsxRuntime.jsx("option", {
+                                                    children: "" + country.label + "",
+                                                    value: country.value
+                                                  }, "" + country.value + "-" + String(i) + "");
+                                      }))
+                              })
                       ],
                       value: country,
                       onChange: handleCountryChange
@@ -63,8 +51,6 @@ function CountrySelect(props) {
 var make = CountrySelect;
 
 export {
-  magnifierLogo ,
-  options ,
   make ,
 }
-/* magnifierLogo Not a pure module */
+/* Button Not a pure module */
