@@ -1,7 +1,23 @@
-// Styling from https://tailwind-elements.com/docs/standard/components/buttons/
-let make = props =>
-  <button
-    {...
-    props}
-    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-  />
+@react.component
+let make = (
+  ~className: option<string>=?,
+  ~value: option<UseCountriesHook.country>=?,
+  ~onClick: unit => unit,
+) => {
+  let classList = switch className {
+  | Some(customClass) => `${customClass}`
+  | None => ""
+  }
+
+  <button type_="button" className={classList} onClick={_ => onClick()}>
+    {switch value {
+    | Some(country) =>
+      <>
+        <FlagIcon country={country.value} />
+        {country.label->React.string}
+      </>
+    | None => <> </>
+    }}
+    <TriangleNeutral />
+  </button>
+}
