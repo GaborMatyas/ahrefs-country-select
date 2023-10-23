@@ -17,6 +17,8 @@ let make = (
 
   let selectContainerRef: React.ref<Js.Nullable.t<Dom.element>> = React.useRef(Js.Nullable.null)
 
+  UseClickOutsideHook.useClickOutside(selectContainerRef, closeDropdown)
+
   React.useEffect1(() => {
     open Js.String2
     let value = switch country {
