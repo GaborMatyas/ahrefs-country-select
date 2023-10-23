@@ -14,6 +14,7 @@
   ],
   "suffix": ".bs.mjs",
   "bs-dependencies": [
+    "@glennsl/rescript-fetch",
     "@rescript/react",
     "@rescript/core",
     "decco"

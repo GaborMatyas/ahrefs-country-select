@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "4.0.0",
+    "@glennsl/rescript-fetch": "0.2.0",
     "autoprefixer": "^10.4.15",
     "flag-icon-css": "^4.1.7",
     "postcss": "^8.4.28",
