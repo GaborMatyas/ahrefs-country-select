@@ -1,7 +1,17 @@
-type option = {
-  value: string,
-  label: string,
-}
+@module("./CountrySelect.module.css") external styles: {..} = "default"
+
+let customStyles = ReactSelect.customStyles(
+  ~option=(provided, state) =>
+    ReactDOM.Style.combine(
+      provided,
+      ReactDOM.Style.make(
+        ~backgroundColor=state.isFocused ? "#FFDBB3" : "inherit",
+        ~color="#333333",
+        (),
+      ),
+    ),
+  (),
+)
 
 @react.component
 let make = (
