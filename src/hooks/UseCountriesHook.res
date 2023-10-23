@@ -13,32 +13,77 @@ type countries = array<country>
 type hookResult =
   | Data(countries)
   | Loading
-  | Empty
   | Error
-  | DecodeError
 
 let {useQuery, queryOptions} = module(ReactQuery)
 
-let handleFetch = _ => {
+let handleFetch = (~signal) => {
   open Promise
-  QueryClient.get(~url=`${apiUrl}`)->thenResolve(countries_decode)
+  QueryClient.get(~url=`${apiUrl}`, ~signal)->thenResolve(countries_decode)
+}
+
+type state = {
+  isLoading: bool,
+  error: string,
+  countries: countries,
+}
+
+let initialState = {
+  isLoading: false,
+  error: "",
+  countries: [],
+}
+
+type action =
+  | Loading
+  | Error(string)
+  | SuccessCountries(countries)
+
+let reducer = (state: state, action: action) => {
+  switch action {
+  | Loading => {
+      isLoading: true,
+      error: "",
+      countries: state.countries,
+    }
+  | Error(msg) => {
+      isLoading: false,
+      error: msg,
+      countries: state.countries,
+    }
+  | SuccessCountries(countries) => {
+      isLoading: false,
+      error: "",
+      countries,
+    }
+  }
 }
 
 let useCountries = () => {
+  let (state, dispatch) = React.useReducer(reducer, initialState)
+
+  let controller = Fetch.AbortController.make()
+  let signal = Fetch.AbortController.signal(controller)
+
   let fetchResult = useQuery(
     queryOptions(
       ~queryKey,
       ~refetchOnWindowFocus=ReactQuery_Utils.refetchOnWindowFocus(#bool(false)),
-      ~queryFn=_ => handleFetch(),
+      ~queryFn=_ => handleFetch(~signal),
       (),
     ),
   )
 
-  switch fetchResult {
-  | {isLoading: true} => Loading
-  | {isError: true} => Error
-  | {data: Some(Error(_))} => DecodeError
-  | {data: Some(Ok(data))} => Data(data)
-  | _ => Empty
-  }
+  React.useEffect1(() => {
+    switch fetchResult {
+    | {isLoading: true} => dispatch(Loading)
+    | {isError: true} => dispatch(Error("Error while fetching countries from server"))
+    | {data: Some(Ok(data))} => dispatch(SuccessCountries(data))
+    | _ => dispatch(SuccessCountries([]))
+    }
+
+    None
+  }, [fetchResult.isLoading])
+
+  (state.isLoading, state.error, state.countries, signal)
 }
