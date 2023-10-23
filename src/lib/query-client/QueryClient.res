@@ -11,13 +11,14 @@ let validateRequestError = response => {
   }
 }
 
-let get = (~url) => {
+let get = (~signal=?, ~url) => {
   open Promise
 
   Fetch.fetch(
     `${url}`,
     {
-      "method": "GET",
+      method: #GET,
+      ?signal,
     },
   )
   ->then(validateRequestError)

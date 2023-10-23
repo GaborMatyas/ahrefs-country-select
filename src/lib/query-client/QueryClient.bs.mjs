@@ -15,9 +15,10 @@ function validateRequestError(response) {
   }
 }
 
-function get(url) {
+function get(signal, url) {
   return fetch("" + url + "", {
-                  method: "GET"
+                  method: "GET",
+                  signal: signal
                 }).then(validateRequestError).then(function (response) {
               return response.json();
             });
