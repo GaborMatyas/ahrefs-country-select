@@ -1,0 +1,28 @@
+.no-scrollbar{
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  border-radius: 2px;
+  background: #FFF;
+  box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
+}
+
+.no-scrollbar::-webkit-scrollbar { 
+  @apply hidden
+}
+
+.menu-list{
+
+}

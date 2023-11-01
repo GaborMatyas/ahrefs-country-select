@@ -1,12 +1,21 @@
 @module("./CountrySelect.module.css") external styles: {..} = "default"
 
 let customStyles = ReactSelect.customStyles(
+  ~menuList=provided =>
+    ReactDOM.Style.combine(provided, ReactDOM.Style.make(~width="230px", ~height="364px", ())),
   ~option=(provided, state) =>
     ReactDOM.Style.combine(
       provided,
       ReactDOM.Style.make(
         ~backgroundColor=state.isFocused ? "#FFDBB3" : "inherit",
         ~color="#333333",
+        ~height="26px",
+        // ~paddingTop="4px",
+        // ~paddingBottom="4px",
+        // ~paddingLeft="10px",
+        ~padding="4px 6px 4px 10px",
+        ~display="flex",
+        ~alignItems="center",
         (),
       ),
     ),
@@ -60,6 +69,7 @@ let make = (
           controlShouldRenderValue={false}
           components={
             option: OptionWithFlag.make,
+            menuList: MenuList.getMenuList,
           }
           filterOption={ReactSelect.createFilter({
             ignoreAccents: true,

@@ -3,10 +3,11 @@
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
 import * as Button from "./Button.bs.mjs";
+import * as MenuList from "./MenuList.bs.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
-import * as ReactSelect from "react-select";
-import ReactSelect$1 from "react-select";
+import ReactSelect from "react-select";
+import * as ReactSelect$1 from "react-select";
 import * as OptionWithFlag from "./OptionWithFlag.bs.mjs";
 import * as UseCountriesHook from "../hooks/UseCountriesHook.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
@@ -19,7 +20,17 @@ var customStyles = {
   option: (function (provided, state) {
       return Object.assign({}, provided, {
                   backgroundColor: state.isFocused ? "#FFDBB3" : "inherit",
-                  color: "#333333"
+                  color: "#333333",
+                  display: "flex",
+                  height: "26px",
+                  padding: "4px 6px 4px 10px",
+                  alignItems: "center"
+                });
+    }),
+  menuList: (function (provided) {
+      return Object.assign({}, provided, {
+                  height: "364px",
+                  width: "230px"
                 });
     })
 };
@@ -64,13 +75,14 @@ function CountrySelect(props) {
                                 }));
                         })
                     }),
-                match$2[0] ? JsxRuntime.jsx(ReactSelect$1, {
+                match$2[0] ? JsxRuntime.jsx(ReactSelect, {
                         autoFocus: true,
                         components: {
-                          Option: OptionWithFlag.make
+                          Option: OptionWithFlag.make,
+                          MenuList: MenuList.getMenuList
                         },
                         controlShouldRenderValue: false,
-                        filterOption: Caml_option.some(ReactSelect.createFilter({
+                        filterOption: Caml_option.some(ReactSelect$1.createFilter({
                                   ignoreCase: true,
                                   ignoreAccents: true
                                 })),

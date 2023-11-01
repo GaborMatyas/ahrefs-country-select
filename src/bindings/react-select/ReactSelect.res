@@ -11,6 +11,15 @@ module ReactSelectOption = {
   }
 }
 
+module ReactSelectMenuList = {
+  type rec reactSelectMenuListProps = {children: React.element}
+  let menuListComponent: reactSelectMenuListProps => React.element = components["MenuList"]
+
+  let make = (props: reactSelectMenuListProps) => {
+    <> {React.createElement(menuListComponent, props)} </>
+  }
+}
+
 type filterConfig = {
   ignoreCase: bool,
   ignoreAccents: bool,
@@ -22,6 +31,7 @@ external createFilter: filterConfig => filterOption = "createFilter"
 
 type components<'a> = {
   @as("Option") option?: ReactSelectOption.reactSelectOptionProps => React.element,
+  @as("MenuList") menuList?: ReactSelectMenuList.reactSelectMenuListProps => React.element,
 }
 
 type componentState = {isFocused: bool}
@@ -32,6 +42,8 @@ type onKeyDown = keyDownEvent => unit
 type customStyles = {
   @optional
   option: (ReactDOM.Style.t, componentState) => ReactDOM.Style.t,
+  @optional
+  menuList: ReactDOM.Style.t => ReactDOM.Style.t,
 }
 
 @module("react-select") @react.component
