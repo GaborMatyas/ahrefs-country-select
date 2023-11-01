@@ -1,7 +1,9 @@
 let make = (props: ReactSelect.ReactSelectOption.reactSelectOptionProps) => {
   let children = Some(<>
     <FlagIcon country={props.value} />
-    {props.label->React.string}
+    <span className={"overflow-hidden text-ellipsis whitespace-nowrap ml-2"}>
+      {props.label->React.string}
+    </span>
   </>)
   <ReactSelect.ReactSelectOption {...props}> {children} </ReactSelect.ReactSelectOption>
 }

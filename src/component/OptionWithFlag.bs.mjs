@@ -12,7 +12,10 @@ function make(props) {
               JsxRuntime.jsx(FlagIcon.make, {
                     country: props.value
                   }),
-              props.label
+              JsxRuntime.jsx("span", {
+                    children: props.label,
+                    className: "overflow-hidden text-ellipsis whitespace-nowrap ml-2"
+                  })
             ]
           }));
   var newrecord = Caml_obj.obj_dup(props);
