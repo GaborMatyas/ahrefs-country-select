@@ -1,5 +1,5 @@
 .country-select-button {
-  @apply text-lightTextPrimary flex items-center not-italic py-1 whitespace-nowrap border-lightBorderControlAlpha w-auto pl-2 font-normal;
+  @apply text-lightTextPrimary flex items-center not-italic py-1 whitespace-nowrap border border-lightBorderControlAlpha w-auto pl-2 font-normal;
   border-radius: 3px;
   border: 1px solid;
   font-family: Arial;

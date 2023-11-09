@@ -7,26 +7,26 @@ let customStyles = ReactSelect.customStyles(
   ~control=provided =>
     ReactDOM.Style.combine(
       provided,
-      ReactDOM.Style.make(~borderStyle="none", ~borderWidth="0", ~boxShadow="none", ()),
+      ReactDOM.Style.make(
+        ~borderStyle="none",
+        ~borderWidth="0",
+        ~boxShadow="none",
+        ~height="39px",
+        (),
+      ),
     ),
   ~menu=provided =>
     ReactDOM.Style.combine(
       provided,
-      ReactDOM.Style.make(
-        ~marginTop="0px",
-        ~borderRadius="0px 0px 2px 2px",
-        ~paddingTop="4px",
-        ~borderTopWidth="0",
-        (),
-      ),
+      ReactDOM.Style.make(~marginTop="0px", ~borderTopWidth="0", ~boxShadow="none", ()),
     ),
   ~container=provided =>
     ReactDOM.Style.combine(
       provided,
       ReactDOM.Style.make(
-        ~border="2px solid lightBorderControlAlpha",
         ~borderRadius="2px 2px 0px 0px",
         ~boxShadow="0px 3px 18px 0px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08)",
+        ~minHeight="34px",
         (),
       ),
     ),

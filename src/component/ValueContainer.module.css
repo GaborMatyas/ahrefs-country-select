@@ -1,9 +1,22 @@
 .value-container-wrapper {
-  @apply flex items-center;
-  margin-left: 2px;
+  @apply flex flex-col w-full absolute top-1 justify-center;
+  font-family: 'Arial';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(0, 0, 0, 0.32);
+  color: rgba(0, 0, 0, 0.32);  
+}
+
+.search-bar {
+  @apply flex items-center;
+  height: 26px;
+}
+
+.divider {
+  @apply mt-1 border-lightBorderLineAlpha;
+  height: 5px;
+  border-top: 1px solid;
+  background: #fff;
+  z-index: 999;
 }
 
 .magnifierIcon {

@@ -5,6 +5,7 @@ module.exports = {
     colors: {
       lightTextPrimary: "#333333",
       lightBorderControlAlpha: "rgba(0, 0, 0, 0.20)",
+      lightBorderLineAlpha: "rgba(0, 0, 0, 0.20)",
       lightBackgroundSelected: "#FFDBB3",
     },
     extend: {

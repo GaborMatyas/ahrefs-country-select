@@ -5,6 +5,7 @@ import * as React from "react";
 import * as Button from "./Button.bs.mjs";
 import * as MenuList from "./MenuList.bs.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
+import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import ReactSelect from "react-select";
 import * as ReactSelect$1 from "react-select";
@@ -38,20 +39,20 @@ var customStyles = {
       return Object.assign({}, provided, {
                   borderTopWidth: "0",
                   marginTop: "0px",
-                  paddingTop: "4px",
-                  borderRadius: "0px 0px 2px 2px"
+                  boxShadow: "none"
                 });
     }),
   control: (function (provided) {
       return Object.assign({}, provided, {
                   borderStyle: "none",
                   borderWidth: "0",
+                  height: "39px",
                   boxShadow: "none"
                 });
     }),
   container: (function (provided) {
       return Object.assign({}, provided, {
-                  border: "2px solid lightBorderControlAlpha",
+                  minHeight: "34px",
                   borderRadius: "2px 2px 0px 0px",
                   boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08)"
                 });
@@ -72,13 +73,21 @@ function CountrySelect(props) {
         return false;
       });
   var setIsDropdownOpen = match$2[1];
-  var closeDropdown = function (param) {
+  var isDropdownOpen = match$2[0];
+  var selectContainerRef = React.useRef(null);
+  var buttonRef = React.useRef(null);
+  var giveFocuseToButton = function (param) {
+    Belt_Option.forEach(Caml_option.nullable_to_opt(buttonRef.current), (function (button) {
+            button.focus();
+          }));
+  };
+  var handleClickOutside = function (param) {
     Curry._1(setIsDropdownOpen, (function (param) {
             return false;
           }));
+    giveFocuseToButton(undefined);
   };
-  var selectContainerRef = React.useRef(null);
-  UseClickOutsideHook.useClickOutside(selectContainerRef, closeDropdown);
+  UseClickOutsideHook.useClickOutside(selectContainerRef, handleClickOutside);
   React.useEffect((function () {
           var value = country !== undefined ? Belt_Array.getByU(countries, (function (countryListItem) {
                     return countryListItem.value.toLowerCase() === country.toLowerCase();
@@ -87,6 +96,12 @@ function CountrySelect(props) {
                   return value;
                 }));
         }), [countries]);
+  React.useEffect(function () {
+        if (isDropdownOpen === false) {
+          giveFocuseToButton(undefined);
+        }
+        
+      });
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx(Button.make, {
@@ -96,9 +111,11 @@ function CountrySelect(props) {
                           Curry._1(setIsDropdownOpen, (function (isOpen) {
                                   return !isOpen;
                                 }));
-                        })
+                        }),
+                      autoFocus: true,
+                      buttonRef: buttonRef
                     }),
-                match$2[0] ? JsxRuntime.jsx(ReactSelect, {
+                isDropdownOpen ? JsxRuntime.jsx(ReactSelect, {
                         autoFocus: true,
                         components: {
                           Option: OptionWithFlag.make,
@@ -129,6 +146,9 @@ function CountrySelect(props) {
                               }
                             }
                             
+                          }),
+                        onMenuClose: (function (_event) {
+                            giveFocuseToButton(undefined);
                           }),
                         options: countries,
                         placeholder: "Search",

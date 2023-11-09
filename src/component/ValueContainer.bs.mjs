@@ -10,10 +10,18 @@ var styles = ValueContainerModuleCss;
 function make(props) {
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx(MagnifierIcon.make, {
-                      className: styles.magnifierIcon
+                JsxRuntime.jsxs("div", {
+                      children: [
+                        JsxRuntime.jsx(MagnifierIcon.make, {
+                              className: styles.magnifierIcon
+                            }),
+                        ReactSelect.ReactSelectValueContainer.make(props)
+                      ],
+                      className: styles["search-bar"]
                     }),
-                ReactSelect.ReactSelectValueContainer.make(props)
+                JsxRuntime.jsx("div", {
+                      className: styles.divider
+                    })
               ],
               className: styles["value-container-wrapper"]
             });
