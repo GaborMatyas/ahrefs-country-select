@@ -2,6 +2,7 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as FlagIcon from "./FlagIcon.bs.mjs";
+import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as TriangleNeutralIcon from "./TriangleNeutralIcon.bs.mjs";
 
@@ -22,7 +23,9 @@ function Button(props) {
                       }) : JsxRuntime.jsx(JsxRuntime.Fragment, {}),
                 JsxRuntime.jsx(TriangleNeutralIcon.make, {})
               ],
+              ref: Caml_option.some(props.buttonRef),
               className: classList,
+              autoFocus: props.autoFocus,
               type: "button",
               onClick: (function (param) {
                   Curry._1(onClick, undefined);

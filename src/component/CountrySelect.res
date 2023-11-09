@@ -1,4 +1,5 @@
 @module("./CountrySelect.module.css") external styles: {..} = "default"
+@send external focus: Dom.element => unit = "focus"
 
 let customStyles = ReactSelect.customStyles(
   ~menuList=provided =>
@@ -58,8 +59,16 @@ let make = (
   let closeDropdown = () => setIsDropdownOpen(_ => false)
 
   let selectContainerRef: React.ref<Js.Nullable.t<Dom.element>> = React.useRef(Js.Nullable.null)
+  let buttonRef: React.ref<Js.Nullable.t<Dom.element>> = React.useRef(Js.Nullable.null)
+  let giveFocuseToButton = () =>
+    buttonRef.current->Js.Nullable.toOption->Belt.Option.forEach(button => button->focus)
 
-  UseClickOutsideHook.useClickOutside(selectContainerRef, closeDropdown)
+  let handleClickOutside = () => {
+    closeDropdown()
+    giveFocuseToButton()
+  }
+
+  UseClickOutsideHook.useClickOutside(selectContainerRef, handleClickOutside)
 
   React.useEffect1(() => {
     open Js.String2
@@ -74,11 +83,20 @@ let make = (
     None
   }, [countries])
 
+  React.useEffect(() => {
+    if isDropdownOpen === false {
+      giveFocuseToButton()
+    }
+    None
+  })
+
   <div className ref={ReactDOM.Ref.domRef(selectContainerRef)}>
     <Button
       className={styles["country-select-button"]}
       onClick={() => setIsDropdownOpen(isOpen => !isOpen)}
       ?value
+      buttonRef={ReactDOM.Ref.domRef(buttonRef)}
+      autoFocus=true
     />
     {isDropdownOpen
       ? <ReactSelect
@@ -105,6 +123,9 @@ let make = (
             if event.key === "Escape" {
               setIsDropdownOpen(_ => false)
             }
+          }}
+          onMenuClose={_event => {
+            giveFocuseToButton()
           }}
           onChange={country =>
             switch Js.Nullable.toOption(country) {

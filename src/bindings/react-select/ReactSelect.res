@@ -80,6 +80,7 @@ external make: (
   ~menuIsOpen: bool=?,
   ~multi: bool=?,
   ~onChange: Js.Nullable.t<'a> => unit,
+  ~onMenuClose: Js.Nullable.t<'a> => unit,
   ~options: options,
   ~placeholder: string=?,
   ~onKeyDown: onKeyDown=?,

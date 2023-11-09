@@ -6,7 +6,7 @@ external removeDocumentEventListener: (string, unit => unit) => unit = "removeEv
 module DomEvent = {
   let isEventFromOutside = %raw(`function (event, elementRef) {
 
-    return event.target && event.target.contains(elementRef.current)
+    return event?.target && event?.target?.contains(elementRef.current)
 
   }`)
 }
