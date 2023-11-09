@@ -31,8 +31,22 @@ var ReactSelectMenuList = {
   make: make$1
 };
 
+var valueContainerComponent = ReactSelect.components.ValueContainer;
+
+function make$2(props) {
+  return JsxRuntime.jsx(JsxRuntime.Fragment, {
+              children: Caml_option.some(React.createElement(valueContainerComponent, props))
+            });
+}
+
+var ReactSelectValueContainer = {
+  valueContainerComponent: valueContainerComponent,
+  make: make$2
+};
+
 export {
   ReactSelectOption ,
   ReactSelectMenuList ,
+  ReactSelectValueContainer ,
 }
 /* optionComponent Not a pure module */

@@ -2,8 +2,8 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as FlagIcon from "./FlagIcon.bs.mjs";
-import * as TriangleNeutral from "./TriangleNeutral.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
+import * as TriangleNeutralIcon from "./TriangleNeutralIcon.bs.mjs";
 
 function Button(props) {
   var onClick = props.onClick;
@@ -20,7 +20,7 @@ function Button(props) {
                           value.label
                         ]
                       }) : JsxRuntime.jsx(JsxRuntime.Fragment, {}),
-                JsxRuntime.jsx(TriangleNeutral.make, {})
+                JsxRuntime.jsx(TriangleNeutralIcon.make, {})
               ],
               className: classList,
               type: "button",

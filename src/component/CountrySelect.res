@@ -3,6 +3,32 @@
 let customStyles = ReactSelect.customStyles(
   ~menuList=provided =>
     ReactDOM.Style.combine(provided, ReactDOM.Style.make(~width="230px", ~height="364px", ())),
+  ~control=provided =>
+    ReactDOM.Style.combine(
+      provided,
+      ReactDOM.Style.make(~borderStyle="none", ~borderWidth="0", ~boxShadow="none", ()),
+    ),
+  ~menu=provided =>
+    ReactDOM.Style.combine(
+      provided,
+      ReactDOM.Style.make(
+        ~marginTop="0px",
+        ~borderRadius="0px 0px 2px 2px",
+        ~paddingTop="4px",
+        ~borderTopWidth="0",
+        (),
+      ),
+    ),
+  ~container=provided =>
+    ReactDOM.Style.combine(
+      provided,
+      ReactDOM.Style.make(
+        ~border="2px solid lightBorderControlAlpha",
+        ~borderRadius="2px 2px 0px 0px",
+        ~boxShadow="0px 3px 18px 0px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08)",
+        (),
+      ),
+    ),
   ~option=(provided, state) =>
     ReactDOM.Style.combine(
       provided,
@@ -10,9 +36,6 @@ let customStyles = ReactSelect.customStyles(
         ~backgroundColor=state.isFocused ? "#FFDBB3" : "inherit",
         ~color="#333333",
         ~height="26px",
-        // ~paddingTop="4px",
-        // ~paddingBottom="4px",
-        // ~paddingLeft="10px",
         ~padding="4px 6px 4px 10px",
         ~display="flex",
         ~alignItems="center",
@@ -67,9 +90,12 @@ let make = (
           styles={customStyles}
           hideSelectedOptions=false
           controlShouldRenderValue={false}
+          placeholder={"Search"}
           components={
             option: OptionWithFlag.make,
             menuList: MenuList.getMenuList,
+            valueContainer: ValueContainer.make,
+            dropdownIndicator: Js.Nullable.null,
           }
           filterOption={ReactSelect.createFilter({
             ignoreAccents: true,

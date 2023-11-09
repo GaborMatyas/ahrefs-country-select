@@ -2,23 +2,24 @@
 
 import * as JsxRuntime from "react/jsx-runtime";
 
-function TriangleNeutral(props) {
+function MagnifierIcon(props) {
   return JsxRuntime.jsx("svg", {
               children: JsxRuntime.jsx("path", {
                     clipRule: "evenodd",
-                    d: "M0 2h8L4 7 0 2z",
+                    d: "M6 11c1.02 0 1.967-.305 2.758-.829l3.302 3.299 1.41-1.41-3.299-3.302A5 5 0 106 11zm3.2-5a3.2 3.2 0 11-6.4 0 3.2 3.2 0 016.4 0z",
                     fill: "#333",
                     fillRule: "evenodd"
                   }),
-              height: "8",
-              width: "8",
+              className: props.className,
+              height: "14",
+              width: "14",
               fill: "none",
-              viewBox: "0 0 8 8",
+              viewBox: "0 0 14 14",
               xmlns: "http://www.w3.org/2000/svg"
             });
 }
 
-var make = TriangleNeutral;
+var make = MagnifierIcon;
 
 export {
   make ,

@@ -12,11 +12,23 @@ module ReactSelectOption = {
 }
 
 module ReactSelectMenuList = {
-  type rec reactSelectMenuListProps = {children: React.element}
+  type reactSelectMenuListProps = {children: React.element}
   let menuListComponent: reactSelectMenuListProps => React.element = components["MenuList"]
 
   let make = (props: reactSelectMenuListProps) => {
     <> {React.createElement(menuListComponent, props)} </>
+  }
+}
+
+module ReactSelectValueContainer = {
+  type rec reactSelectValueContainerProps = {
+    children: React.element,
+    getStyles: (string, reactSelectValueContainerProps) => ReactDOM.Style.t,
+  }
+  let valueContainerComponent: reactSelectValueContainerProps => React.element = components["ValueContainer"]
+
+  let make = (props: reactSelectValueContainerProps) => {
+    <> {React.createElement(valueContainerComponent, props)} </>
   }
 }
 
@@ -32,18 +44,30 @@ external createFilter: filterConfig => filterOption = "createFilter"
 type components<'a> = {
   @as("Option") option?: ReactSelectOption.reactSelectOptionProps => React.element,
   @as("MenuList") menuList?: ReactSelectMenuList.reactSelectMenuListProps => React.element,
+  @as("ValueContainer")
+  valueContainer?: ReactSelectValueContainer.reactSelectValueContainerProps => React.element,
+  @as("DropdownIndicator")
+  dropdownIndicator?: Js.Nullable.t<React.component<{.}>>,
 }
 
-type componentState = {isFocused: bool}
+type componentState = {isFocused: bool, isHovered: bool}
 type keyDownEvent = {which: int, key: string}
 type onKeyDown = keyDownEvent => unit
+type customComponentStyles = ReactDOM.Style.t => ReactDOM.Style.t
+type customComponentStylesWithState = (ReactDOM.Style.t, componentState) => ReactDOM.Style.t
 
 @deriving(abstract)
 type customStyles = {
   @optional
-  option: (ReactDOM.Style.t, componentState) => ReactDOM.Style.t,
+  option: customComponentStylesWithState,
   @optional
-  menuList: ReactDOM.Style.t => ReactDOM.Style.t,
+  menuList: customComponentStyles,
+  @optional
+  menu: customComponentStyles,
+  @optional
+  control: customComponentStyles,
+  @optional
+  container: customComponentStyles,
 }
 
 @module("react-select") @react.component

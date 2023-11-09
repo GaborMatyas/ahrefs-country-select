@@ -9,6 +9,7 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import ReactSelect from "react-select";
 import * as ReactSelect$1 from "react-select";
 import * as OptionWithFlag from "./OptionWithFlag.bs.mjs";
+import * as ValueContainer from "./ValueContainer.bs.mjs";
 import * as UseCountriesHook from "../hooks/UseCountriesHook.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as UseClickOutsideHook from "../hooks/UseClickOutsideHook.bs.mjs";
@@ -31,6 +32,28 @@ var customStyles = {
       return Object.assign({}, provided, {
                   height: "364px",
                   width: "230px"
+                });
+    }),
+  menu: (function (provided) {
+      return Object.assign({}, provided, {
+                  borderTopWidth: "0",
+                  marginTop: "0px",
+                  paddingTop: "4px",
+                  borderRadius: "0px 0px 2px 2px"
+                });
+    }),
+  control: (function (provided) {
+      return Object.assign({}, provided, {
+                  borderStyle: "none",
+                  borderWidth: "0",
+                  boxShadow: "none"
+                });
+    }),
+  container: (function (provided) {
+      return Object.assign({}, provided, {
+                  border: "2px solid lightBorderControlAlpha",
+                  borderRadius: "2px 2px 0px 0px",
+                  boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08)"
                 });
     })
 };
@@ -79,7 +102,9 @@ function CountrySelect(props) {
                         autoFocus: true,
                         components: {
                           Option: OptionWithFlag.make,
-                          MenuList: MenuList.getMenuList
+                          MenuList: MenuList.getMenuList,
+                          ValueContainer: ValueContainer.make,
+                          DropdownIndicator: null
                         },
                         controlShouldRenderValue: false,
                         filterOption: Caml_option.some(ReactSelect$1.createFilter({
@@ -106,6 +131,7 @@ function CountrySelect(props) {
                             
                           }),
                         options: countries,
+                        placeholder: "Search",
                         onKeyDown: (function ($$event) {
                             if ($$event.key === "Escape") {
                               return Curry._1(setIsDropdownOpen, (function (param) {

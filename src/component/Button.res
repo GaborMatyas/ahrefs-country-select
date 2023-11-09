@@ -18,6 +18,6 @@ let make = (
       </>
     | None => <> </>
     }}
-    <TriangleNeutral />
+    <TriangleNeutralIcon />
   </button>
 }

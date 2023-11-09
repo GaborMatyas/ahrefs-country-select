@@ -1,0 +1,11 @@
+.value-container-wrapper {
+  @apply flex items-center;
+  margin-left: 2px;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.32);
+}
+
+.magnifierIcon {
+    margin-left: 10px;
+  }
