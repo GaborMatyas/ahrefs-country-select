@@ -51,8 +51,7 @@ type components<'a> = {
 }
 
 type componentState = {isFocused: bool, isHovered: bool}
-type keyDownEvent = {which: int, key: string}
-type onKeyDown = keyDownEvent => unit
+type onKeyDown = KeyDownModel.keyDownEvent => unit
 type customComponentStyles = ReactDOM.Style.t => ReactDOM.Style.t
 type customComponentStylesWithState = (ReactDOM.Style.t, componentState) => ReactDOM.Style.t
 

@@ -1,3 +1,5 @@
+let fallbackButtonProps: UseCountriesHook.country = {label: "No selected Country", value: "xx"}
+
 @react.component
 let make = (
   ~className: option<string>=?,
@@ -12,14 +14,16 @@ let make = (
   }
 
   <button type_="button" className={classList} onClick={_ => onClick()} autoFocus ref=buttonRef>
-    {switch value {
-    | Some(country) =>
+    {
+      let buttonData = switch value {
+      | Some(country) => country
+      | None => fallbackButtonProps
+      }
       <>
-        <FlagIcon country={country.value} />
-        {country.label->React.string}
+        <FlagIcon country={buttonData.value} />
+        {buttonData.label->React.string}
       </>
-    | None => <> </>
-    }}
+    }
     <TriangleNeutralIcon />
   </button>
 }

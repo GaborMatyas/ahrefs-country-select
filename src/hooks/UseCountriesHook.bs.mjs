@@ -7,7 +7,7 @@ import * as Js_dict from "rescript/lib/es6/js_dict.js";
 import * as Js_json from "rescript/lib/es6/js_json.js";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
-import * as QueryClient from "../lib/query-client/QueryClient.bs.mjs";
+import * as QueryClient from "../bindings/react-query/QueryClient.bs.mjs";
 import * as ReactQuery from "react-query";
 import * as ReactQuery_Utils from "../bindings/react-query/ReactQuery_Utils.bs.mjs";
 

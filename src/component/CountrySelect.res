@@ -56,10 +56,11 @@ let make = (
 
   let (value, setValue) = React.useState(() => None)
   let (isDropdownOpen, setIsDropdownOpen) = React.useState(() => false)
-  let closeDropdown = () => setIsDropdownOpen(_ => false)
 
   let selectContainerRef: React.ref<Js.Nullable.t<Dom.element>> = React.useRef(Js.Nullable.null)
   let buttonRef: React.ref<Js.Nullable.t<Dom.element>> = React.useRef(Js.Nullable.null)
+
+  let closeDropdown = () => setIsDropdownOpen(_ => false)
   let giveFocuseToButton = () =>
     buttonRef.current->Js.Nullable.toOption->Belt.Option.forEach(button => button->focus)
 
@@ -68,10 +69,18 @@ let make = (
     giveFocuseToButton()
   }
 
+  let cancelSelection = () => {
+    if isDropdownOpen === false {
+      setValue(_ => Some(Button.fallbackButtonProps))
+    }
+  }
+
   UseClickOutsideHook.useClickOutside(selectContainerRef, handleClickOutside)
+  UseCancelSelectionHook.useCancelSelection(cancelSelection)
 
   React.useEffect1(() => {
     open Js.String2
+
     let value = switch country {
     | Some(countryFromParent) =>
       countries->Belt.Array.getByU((. countryListItem) =>
@@ -79,7 +88,9 @@ let make = (
       )
     | None => None
     }
+
     setValue(_ => value)
+
     None
   }, [countries])
 

@@ -7,13 +7,14 @@ import * as MenuList from "./MenuList.bs.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
-import ReactSelect from "react-select";
-import * as ReactSelect$1 from "react-select";
+import * as ReactSelect from "react-select";
+import ReactSelect$1 from "react-select";
 import * as OptionWithFlag from "./OptionWithFlag.bs.mjs";
 import * as ValueContainer from "./ValueContainer.bs.mjs";
 import * as UseCountriesHook from "../hooks/UseCountriesHook.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as UseClickOutsideHook from "../hooks/UseClickOutsideHook.bs.mjs";
+import * as UseCancelSelectionHook from "../hooks/UseCancelSelectionHook.bs.mjs";
 import CountrySelectModuleCss from "./CountrySelect.module.css";
 
 var styles = CountrySelectModuleCss;
@@ -87,7 +88,16 @@ function CountrySelect(props) {
           }));
     giveFocuseToButton(undefined);
   };
+  var cancelSelection = function (param) {
+    if (isDropdownOpen === false) {
+      return Curry._1(setValue, (function (param) {
+                    return Button.fallbackButtonProps;
+                  }));
+    }
+    
+  };
   UseClickOutsideHook.useClickOutside(selectContainerRef, handleClickOutside);
+  UseCancelSelectionHook.useCancelSelection(cancelSelection);
   React.useEffect((function () {
           var value = country !== undefined ? Belt_Array.getByU(countries, (function (countryListItem) {
                     return countryListItem.value.toLowerCase() === country.toLowerCase();
@@ -115,7 +125,7 @@ function CountrySelect(props) {
                       autoFocus: true,
                       buttonRef: buttonRef
                     }),
-                isDropdownOpen ? JsxRuntime.jsx(ReactSelect, {
+                isDropdownOpen ? JsxRuntime.jsx(ReactSelect$1, {
                         autoFocus: true,
                         components: {
                           Option: OptionWithFlag.make,
@@ -124,7 +134,7 @@ function CountrySelect(props) {
                           DropdownIndicator: null
                         },
                         controlShouldRenderValue: false,
-                        filterOption: Caml_option.some(ReactSelect$1.createFilter({
+                        filterOption: Caml_option.some(ReactSelect.createFilter({
                                   ignoreCase: true,
                                   ignoreAccents: true
                                 })),

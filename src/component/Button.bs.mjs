@@ -6,21 +6,27 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as TriangleNeutralIcon from "./TriangleNeutralIcon.bs.mjs";
 
+var fallbackButtonProps = {
+  label: "No selected Country",
+  value: "xx"
+};
+
 function Button(props) {
   var onClick = props.onClick;
   var value = props.value;
   var className = props.className;
   var classList = className !== undefined ? "" + className + "" : "";
+  var buttonData = value !== undefined ? value : fallbackButtonProps;
   return JsxRuntime.jsxs("button", {
               children: [
-                value !== undefined ? JsxRuntime.jsxs(JsxRuntime.Fragment, {
-                        children: [
-                          JsxRuntime.jsx(FlagIcon.make, {
-                                country: value.value
-                              }),
-                          value.label
-                        ]
-                      }) : JsxRuntime.jsx(JsxRuntime.Fragment, {}),
+                JsxRuntime.jsxs(JsxRuntime.Fragment, {
+                      children: [
+                        JsxRuntime.jsx(FlagIcon.make, {
+                              country: buttonData.value
+                            }),
+                        buttonData.label
+                      ]
+                    }),
                 JsxRuntime.jsx(TriangleNeutralIcon.make, {})
               ],
               ref: Caml_option.some(props.buttonRef),
@@ -36,6 +42,7 @@ function Button(props) {
 var make = Button;
 
 export {
+  fallbackButtonProps ,
   make ,
 }
 /* FlagIcon Not a pure module */
