@@ -1,14 +1,7 @@
 let queryKey = `countries`
 let apiUrl = "https://gist.githubusercontent.com/rusty-key/659db3f4566df459bd59c8a53dc9f71f/raw/4127f9550ef063121c564025f6d27dceeb279623/counties.json"
 
-@decco
-type country = {
-  label: string,
-  value: string,
-}
-
-@decco
-type countries = array<country>
+open Countries
 
 type hookResult =
   | Data(countries)
@@ -19,7 +12,9 @@ let {useQuery, queryOptions} = module(ReactQuery)
 
 let handleFetch = (~signal) => {
   open Promise
-  QueryClient.get(~url=`${apiUrl}`, ~signal)->thenResolve(countries_decode)
+  QueryClient.get(~url=`${apiUrl}`, ~signal)->thenResolve(
+    Jzon.decodeWith(_, CountryRespValidationCodec.Codecs.countries),
+  )
 }
 
 type state = {

@@ -5,12 +5,6 @@ export default defineConfig({
   plugins: [
     react({
       include: ["**/*.bs.mjs"],
-      exclude: ["decco/*/*.bs.mjs"],
     }),
   ],
-  build: {
-    rollupOptions: {
-      external: ["decco/src/Decco.bs.mjs"],
-    },
-  },
 });

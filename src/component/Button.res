@@ -1,9 +1,11 @@
-let fallbackButtonProps: UseCountriesHook.country = {label: "No selected Country", value: "xx"}
+open Countries
+
+let fallbackButtonProps: country = {label: "No selected Country", value: "xx"}
 
 @react.component
 let make = (
   ~className: option<string>=?,
-  ~value: option<UseCountriesHook.country>=?,
+  ~value: option<country>=?,
   ~onClick: unit => unit,
   ~autoFocus: bool,
   ~buttonRef: ReactDOM.domRef,

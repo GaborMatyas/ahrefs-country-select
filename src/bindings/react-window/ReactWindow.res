@@ -1,3 +1,5 @@
+open Countries
+
 type childRenderProps = {data: array<React.element>, index: int, style: ReactDOM.Style.t}
 
 type innerElementProps = {
@@ -27,7 +29,7 @@ external make: (
   ~outerRef: ReactDOM.domRef=?,
   ~overscanCount: int=?,
   ~ref: ReactDOM.domRef=?,
-  ~itemKey: (int, UseCountriesHook.countries) => string=?,
+  ~itemKey: (int, countries) => string=?,
   ~style: ReactDOM.Style.t=?,
   ~width: string,
 ) => React.element = "VariableSizeList"

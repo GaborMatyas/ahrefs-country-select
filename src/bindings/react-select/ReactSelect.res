@@ -1,4 +1,6 @@
-type options = array<UseCountriesHook.country>
+open Countries
+
+type options = array<country>
 
 @module("react-select") external components: {..} = "components"
 
@@ -84,5 +86,5 @@ external make: (
   ~placeholder: string=?,
   ~onKeyDown: onKeyDown=?,
   ~styles: customStyles=?,
-  ~value: UseCountriesHook.country=?,
+  ~value: country=?,
 ) => React.element = "default"

@@ -17,10 +17,7 @@
     "@glennsl/rescript-fetch",
     "@rescript/react",
     "@rescript/core",
-    "decco"
-  ],
-  "ppx-flags": [
-    "decco/ppx"
+    "rescript-jzon"
   ],
   "jsx": {
     "version": 4,
