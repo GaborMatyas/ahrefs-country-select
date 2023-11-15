@@ -139,7 +139,7 @@ function CountrySelect(props) {
                                   ignoreAccents: true
                                 })),
                         hideSelectedOptions: false,
-                        menuIsOpen: true,
+                        menuIsOpen: isDropdownOpen,
                         multi: false,
                         onChange: (function (country) {
                             if (!(country == null)) {
@@ -164,6 +164,7 @@ function CountrySelect(props) {
                         placeholder: "Search",
                         onKeyDown: (function ($$event) {
                             if ($$event.key === "Escape") {
+                              $$event.stopPropagation();
                               return Curry._1(setIsDropdownOpen, (function (param) {
                                             return false;
                                           }));

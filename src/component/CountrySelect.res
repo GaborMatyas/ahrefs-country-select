@@ -1,3 +1,5 @@
+open Countries
+
 @module("./CountrySelect.module.css") external styles: {..} = "default"
 @send external focus: Dom.element => unit = "focus"
 
@@ -47,11 +49,7 @@ let customStyles = ReactSelect.customStyles(
 )
 
 @react.component
-let make = (
-  ~country: option<string>,
-  ~className: string,
-  ~onChange: option<UseCountriesHook.country => unit>=?,
-) => {
+let make = (~country: option<string>, ~className: string, ~onChange: option<country => unit>=?) => {
   let (_isLoading, _error, countries, _signal) = UseCountriesHook.useCountries()
 
   let (value, setValue) = React.useState(() => None)
@@ -115,7 +113,7 @@ let make = (
           autoFocus=true
           multi={false}
           options=countries
-          menuIsOpen={true}
+          menuIsOpen={isDropdownOpen}
           styles={customStyles}
           hideSelectedOptions=false
           controlShouldRenderValue={false}
@@ -132,6 +130,7 @@ let make = (
           })}
           onKeyDown={event => {
             if event.key === "Escape" {
+              event.stopPropagation(.)
               setIsDropdownOpen(_ => false)
             }
           }}
