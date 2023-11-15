@@ -14,17 +14,18 @@
   "dependencies": {
     "@rescript/core": "^0.5.0",
     "@rescript/react": "^0.11.0",
-    "rescript-jzon": "1.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-select": "^5.7.7",
     "react-window": "1.8.9",
-    "rescript": "10.1"
+    "rescript": "10.1",
+    "rescript-jzon": "1.3.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "4.0.0",
     "@glennsl/rescript-fetch": "0.2.0",
+    "@jihchi/vite-plugin-rescript": "^5.3.1",
+    "@vitejs/plugin-react": "4.0.0",
     "autoprefixer": "^10.4.15",
     "flag-icon-css": "^4.1.7",
     "postcss": "^8.4.28",

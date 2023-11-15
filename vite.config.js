@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import createReScriptPlugin from "@jihchi/vite-plugin-rescript";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -6,5 +7,6 @@ export default defineConfig({
     react({
       include: ["**/*.bs.mjs"],
     }),
+    createReScriptPlugin(),
   ],
 });
